@@ -115,7 +115,7 @@ public class TokenStream {
 		// Then check for a separator.
 		if (isSeparator(nextChar)) {
 			t.setType("Separator");
-			// TODO TO BE COMPLETED
+			// TODO TO BE COMPLETED (didn't see anything to do)
 			return t;
 		}
 
@@ -187,8 +187,11 @@ public class TokenStream {
 	}
 
 	private boolean isKeyword(String s) {
-		// TODO TO BE COMPLETED 
-		return false;
+		// TODO TO BE COMPLETED (yeah!)
+		if(s.equals("boolean") || s.equals("else") || s.equals("if") || s.equals("int") || s.equals("main") || s.equals("void") || s.equals("while"))
+			return true;
+		else
+			return false;
 	}
 
 	private boolean isWhiteSpace(char c) {
@@ -211,14 +214,20 @@ public class TokenStream {
 	}
 
 	private boolean isSeparator(char c) {
-		// TODO TO BE COMPLETED
-		return false;
+		// TODO TO BE COMPLETED (yup!)
+		if(c=='(' || c==')' || c=='{' || c=='}'|| c==';'|| c==',')
+			return true;
+		else
+			return false;
 	}
 
 	private boolean isOperator(char c) {
 		// Checks for characters that start operators
-		// TODO TO BE COMPLETED
-		return false;
+		// TODO TO BE COMPLETED (yup!)
+		if(c=='=' || c=='|' || c=='!' || c=='&'|| c=='+'|| c=='-'|| c=='/'|| c=='<'|| c=='>'|| c=='*')
+			return true;
+		else
+			return false;
 	}
 
 	private boolean isLetter(char c) {
@@ -226,8 +235,12 @@ public class TokenStream {
 	}
 
 	private boolean isDigit(char c) {
-		// TODO TO BE COMPLETED
-		return false;
+		// TODO TO BE COMPLETED (Yup)
+		if(c>='0' && c<='9') {
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public boolean isEndofFile() {
