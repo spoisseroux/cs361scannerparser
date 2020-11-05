@@ -73,14 +73,63 @@ public class TokenStream {
 			t.setType("Operator");
 			t.setValue(t.getValue() + nextChar);
 			switch (nextChar) {
+				// TODO TO BE COMPLETED (done)
 			case '<':
+					// Look for <=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+					
 			case '>':
+					// Look for >=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+
 			case '=':
+					// Look for ==
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} if (nextChar == '<') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} if (nextChar == '>') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+
 			case '!':
-				// look for <=, >=, ==, and !=
-				nextChar = readChar();
-				// TODO TO BE COMPLETED
-				return t;
+					// Look for !=
+					nextChar = readChar();
+					if (nextChar == '=') {
+						t.setValue(t.getValue() + nextChar);
+						nextChar = readChar();
+						return t;
+					} else {
+						t.setType("Other");
+					}
+					return t;
+
 			case '|':
 				// Look for ||
 				nextChar = readChar();
@@ -115,7 +164,10 @@ public class TokenStream {
 		// Then check for a separator.
 		if (isSeparator(nextChar)) {
 			t.setType("Separator");
-			// TODO TO BE COMPLETED (didn't see anything to do)
+			// TODO TO BE COMPLETED (done)
+			t.setValue(t.getValue() + nextChar);
+			nextChar = readChar();
+
 			return t;
 		}
 
@@ -148,11 +200,11 @@ public class TokenStream {
 			// an operator, or a separator.
 			if (isEndOfToken(nextChar)) {// If token is valid, returns.
 				return t;
-			} 
+			}
 		}
 
 		t.setType("Other");
-		
+
 		if (isEof) {
 			return t;
 		}
@@ -162,7 +214,7 @@ public class TokenStream {
 			t.setValue(t.getValue() + nextChar);
 			nextChar = readChar();
 		}
-		
+
 		// Finally check for whitespaces and bypass them
 		skipWhiteSpace();
 
