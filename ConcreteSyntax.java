@@ -50,9 +50,10 @@ public class ConcreteSyntax {
 		String[] header = { "main", "(", ")" };
 		Program p = new Program();
 		for (int i = 0; i < header.length; i++)
-			// bypass "void main ( )"
-			match(header[i]);
-		// TODO TO BE COMPLETED
+			match(header[i]);	// bypass "void main ( )"
+		// TODO TO BE COMPLETED (I think done?)
+		p.decpart = declarations();
+
 		return p;
 	}
 
@@ -125,9 +126,11 @@ public class ConcreteSyntax {
 			s = ifStatement();
 		else if (token.getValue().equals("while")) {
 			// WhileStatement
-			// TODO TO BE COMPLETED
+			// TODO TO BE COMPLETED (done)
+			s = whileStatement();
 		} else if (token.getType().equals("Identifier")) { // Assignment
-			// TODO TO BE COMPLETED
+			// TODO TO BE COMPLETED (done)
+			s = assignment();
 		} else
 			throw new RuntimeException(SyntaxError("Statement"));
 		return s;
@@ -146,7 +149,13 @@ public class ConcreteSyntax {
 		// Assignment --> Identifier = Expression ;
 		Assignment a = new Assignment();
 		if (token.getType().equals("Identifier")) {
-			// TODO TO BE COMPLETED
+			// TODO TO BE COMPLETED (done)
+				a.target = new Variable();
+				a.target.id = token.getValue();
+				token = input.nextToken();
+				match("=");
+				a.source = expression();
+				match(";");
 		} else
 			throw new RuntimeException(SyntaxError("Identifier"));
 		return a;
