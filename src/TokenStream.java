@@ -55,8 +55,19 @@ public class TokenStream {
 			nextChar = readChar();
 			if (nextChar == '/') { // If / is followed by another /
 				// skip rest of line - it's a comment.
-				// TODO TO BE COMPLETED- NOT DONE(make sure ignores after comment)
+				// TODO TO BE COMPLETED- DONE(make sure ignores after comment)
 				// look for <cr>, <lf>, <ff>  
+				
+				t.setValue(t.getValue() + nextChar);
+				nextChar = readChar();
+				t.setValue("//");
+				while (nextChar != '\n') {
+					String temp = t.getValue();
+					t.setValue(temp + nextChar);
+					nextChar = readChar();
+				}
+				t.setType("Comment");
+				return t;
 				
 			} else {
 				// A slash followed by anything else must be an operator.
