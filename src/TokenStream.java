@@ -55,9 +55,9 @@ public class TokenStream {
 			nextChar = readChar();
 			if (nextChar == '/') { // If / is followed by another /
 				// skip rest of line - it's a comment.
-				// TODO TO BE COMPLETED
-				// look for <cr>, <lf>, <ff>
-
+				// TODO TO BE COMPLETED- NOT DONE(make sure ignores after comment)
+				// look for <cr>, <lf>, <ff>  
+				
 			} else {
 				// A slash followed by anything else must be an operator.
 				t.setValue("/");
@@ -73,63 +73,59 @@ public class TokenStream {
 			t.setType("Operator");
 			t.setValue(t.getValue() + nextChar);
 			switch (nextChar) {
-				// TODO TO BE COMPLETED (done)
+			// TODO TO BE COMPLETED (done)
 			case '<':
-					// Look for <=
+				// Look for <=
+				nextChar = readChar();
+				if (nextChar == '=') {
+					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
-					if (nextChar == '=') {
-						t.setValue(t.getValue() + nextChar);
-						nextChar = readChar();
-						return t;
-					} else {
-						t.setType("Other");
-					}
 					return t;
-					
-			case '>':
-					// Look for >=
+				} else {
+					t.setType("Other");
+				}
+				return t;
+			case '>': 
+				// Look for >=
+				nextChar = readChar();
+				if (nextChar == '=') {
+					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
-					if (nextChar == '=') {
-						t.setValue(t.getValue() + nextChar);
-						nextChar = readChar();
-						return t;
-					} else {
-						t.setType("Other");
-					}
 					return t;
-
-			case '=':
-					// Look for ==
+				} else {
+					t.setType("Other");
+				}
+				return t;
+			case '=': 
+				// Look for ==
+				nextChar = readChar();
+				if (nextChar == '=') {
+					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
-					if (nextChar == '=') {
-						t.setValue(t.getValue() + nextChar);
-						nextChar = readChar();
-						return t;
-					} if (nextChar == '<') {
-						t.setValue(t.getValue() + nextChar);
-						nextChar = readChar();
-						return t;
-					} if (nextChar == '>') {
-						t.setValue(t.getValue() + nextChar);
-						nextChar = readChar();
-						return t;
-					} else {
-						t.setType("Other");
-					}
 					return t;
-
+				} if (nextChar == '<') {
+					t.setValue(t.getValue() + nextChar);
+					nextChar = readChar();
+					return t;
+				} if (nextChar == '>') {
+					t.setValue(t.getValue() + nextChar);
+					nextChar = readChar();
+					return t;
+				} else {
+					t.setType("Other");
+				}
+				return t;
 			case '!':
-					// Look for !=
+				// Look for !=
+				nextChar = readChar();
+				if (nextChar == '=') {
+					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
-					if (nextChar == '=') {
-						t.setValue(t.getValue() + nextChar);
-						nextChar = readChar();
-						return t;
-					} else {
-						t.setType("Other");
-					}
 					return t;
-
+				} else {
+					t.setType("Other");
+				}
+				return t;
 			case '|':
 				// Look for ||
 				nextChar = readChar();
@@ -143,7 +139,7 @@ public class TokenStream {
 				return t;
 
 			case '&':
-				// Look or &&
+				// Look for &&
 				nextChar = readChar();
 				if (nextChar == '&') {
 					t.setValue(t.getValue() + nextChar);
@@ -200,11 +196,11 @@ public class TokenStream {
 			// an operator, or a separator.
 			if (isEndOfToken(nextChar)) {// If token is valid, returns.
 				return t;
-			}
+			} 
 		}
 
 		t.setType("Other");
-
+		
 		if (isEof) {
 			return t;
 		}
@@ -214,7 +210,7 @@ public class TokenStream {
 			t.setValue(t.getValue() + nextChar);
 			nextChar = readChar();
 		}
-
+		
 		// Finally check for whitespaces and bypass them
 		skipWhiteSpace();
 

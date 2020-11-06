@@ -2,7 +2,7 @@
 
 // Implementation of the Recursive Descent Parser algorithm
 
-//  Each method corresponds to a concrete syntax grammar rule,
+// Each method corresponds to a concrete syntax grammar rule,
 // which appears as a comment at the beginning of the method.
 
 // This code DOES NOT implement a parser for JAY. You have to complete
@@ -47,15 +47,14 @@ public class ConcreteSyntax {
 
 	public Program program() {
 		// Program --> void main ( ) '{' Declarations Statements '}'
-		String[] header = { "main", "(", ")", "{"};
+		String[] header = { "void", "main", "(", ")", "{" };
 		Program p = new Program();
 		for (int i = 0; i < header.length; i++)
-			match(header[i]);	// bypass "void main ( )"
+			match(header[i]); // bypass "void main ( )" 
 		// TODO TO BE COMPLETED (done)
-		p.decpart = declarations(); //reads the declarations
+		p.decpart = declarations(); //reads the declarations 
 		p.body = statements();
 		match("}");
-
 		return p;
 	}
 
@@ -126,8 +125,7 @@ public class ConcreteSyntax {
 			match("}");
 		} else if (token.getValue().equals("if")) // IfStatement
 			s = ifStatement();
-		else if (token.getValue().equals("while")) {
-			// WhileStatement
+		else if (token.getValue().equals("while")) { // WhileStatement
 			// TODO TO BE COMPLETED (done)
 			s = whileStatement();
 		} else if (token.getType().equals("Identifier")) { // Assignment
@@ -152,12 +150,12 @@ public class ConcreteSyntax {
 		Assignment a = new Assignment();
 		if (token.getType().equals("Identifier")) {
 			// TODO TO BE COMPLETED (done)
-				a.target = new Variable();
-				a.target.id = token.getValue();
-				token = input.nextToken();
-				match("=");
-				a.source = expression();
-				match(";");
+			a.target = new Variable();
+			a.target.id = token.getValue();
+			token = input.nextToken();
+			match("=");
+			a.source = expression();
+			match(";");
 		} else
 			throw new RuntimeException(SyntaxError("Identifier"));
 		return a;
