@@ -5,7 +5,7 @@ public class ParserDemo {
 		// Change the path!
 //		TokenStream tStream = new TokenStream("C:\\\\Users\\\\cscharff\\\\eclipse-workspace\\\\ScannerSolution\\\\src\\\\prog1.jay");
 		
-		TokenStream bStream = new TokenStream("src/prog1.jay");
+		TokenStream bStream = new TokenStream("src/prog2.jay");
 		
 //		ConcreteSyntax cSyntax = new ConcreteSyntax(tStream);
 		ConcreteSyntax cSyntax = new ConcreteSyntax(bStream);
