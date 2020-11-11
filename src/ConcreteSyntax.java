@@ -301,15 +301,19 @@ public class ConcreteSyntax {
 	private Conditional ifStatement() {
 		// IfStatement --> if ( Expression ) Statement { else Statement }opt
 		Conditional c = new Conditional();
-		// TODO TO BE COMPLETED
-		// not sure if this works... pretty sure it doesnt?
+		// TODO TO BE COMPLETED needs work... at least it outputs
 		
 		match("if");
 		match("(");
     	c.test = expression();
+    	
+    	//SHOULD HANDLE MULTIPLE EXPRESSIONS IN () ???
+    	token = input.nextToken();
+    	token = input.nextToken();
+    	
     	match(")");
     	match("{");
-    	match("}");
+    	c.thenbranch = statement();
     	if (token.getValue().equals("else")) {
     		match("{");
     		token = input.nextToken();
@@ -329,7 +333,7 @@ public class ConcreteSyntax {
         match("(");
         l.test = expression();
         
-        //SHOULD HANDLE MULTIPLE EXPRESSIONS IN ()
+        //SHOULD HANDLE MULTIPLE EXPRESSIONS IN () ???
         token=input.nextToken();
         token=input.nextToken();
         
