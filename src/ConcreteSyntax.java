@@ -27,10 +27,16 @@ public class ConcreteSyntax {
 
 	// Method that prints a syntax error message
 	private String SyntaxError(String tok) {
-		String s = "Syntax error - Expecting: " + tok + " But saw: "
-				+ token.getType() + " = " + token.getValue();
-		System.out.println(s);
-		return s;
+		if (token.getType().equals("Other")) {
+			String s = "Lexical Error - use of " + token.getValue();
+			System.out.println(s);
+			return s;
+		} else {
+			String s = "Syntax error - Expecting: " + tok + " But saw: "
+					+ token.getType() + " = " + token.getValue();
+			System.out.println(s);
+			return s;
+		}
 		// System.exit(0);
 	}
 
