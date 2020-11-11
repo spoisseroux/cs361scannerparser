@@ -42,14 +42,9 @@ public class ConcreteSyntax {
 
 	// Match a string with the value of a token. If no problem, go to the next
 	// token otherwise generate an error message
-	private int match(String s) {
-		if (token.getType().equals("Comment")) {
+	private void match(String s) {
+		if (token.getValue().equals(s)) {
 			token = input.nextToken();
-			return 0;
-		}
-		else if (token.getValue().equals(s)) {
-			token = input.nextToken();
-			return 1;
 		}
 		else {
 			throw new RuntimeException(SyntaxError(s));
@@ -63,11 +58,7 @@ public class ConcreteSyntax {
 		String[] header = { "void", "main", "(", ")", "{" };
 		Program p = new Program();
 		for (int i = 0; i < header.length; i++) { //CHECK FOR TOP COMMENT
-			if (match(header[i]) == 1) {
-				
-			} else {
-				i = i-1;
-			} // bypass "void main ( )" 
+			match(header[i]); // bypass "void main ( )" 
 		}
 		// TODO TO BE COMPLETED (done)
 		p.decpart = declarations(); //reads the declarations 
@@ -217,7 +208,6 @@ public class ConcreteSyntax {
 		Binary b;
 		Expression e;
 		e = addition();
-		// TODO TO BE COMPLETED
 		while (token.getValue().equals("<") || token.getValue().equals("<=")
 				|| token.getValue().equals(">=")
 				|| token.getValue().equals("==")
@@ -312,6 +302,7 @@ public class ConcreteSyntax {
 		// IfStatement --> if ( Expression ) Statement { else Statement }opt
 		Conditional c = new Conditional();
 		// TODO TO BE COMPLETED
+
 		return c;
 	}
 
@@ -319,6 +310,7 @@ public class ConcreteSyntax {
 		// WhileStatement --> while ( Expression ) Statement
 		Loop l = new Loop();
 		// TODO TO BE COMPLETED
+
 		return l;
 	}
 
