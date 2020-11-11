@@ -58,17 +58,12 @@ public class TokenStream {
 				// TODO TO BE COMPLETED- DONE(make sure ignores after comment)
 				// look for <cr>, <lf>, <ff>  
 				
-				//t.setValue(t.getValue() + nextChar);
-				//nextChar = readChar();
-				//t.setValue("//");
 				while (nextChar != '\n') {
-					//String temp = t.getValue();
-					//t.setValue(temp + nextChar);
 					nextChar = readChar();
 				}
 				nextChar = readChar();
-				//t.setType("Comment");
-				//return t;
+				skipWhiteSpace();
+				
 				
 			} else {
 				// A slash followed by anything else must be an operator.
