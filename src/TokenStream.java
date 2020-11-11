@@ -58,16 +58,17 @@ public class TokenStream {
 				// TODO TO BE COMPLETED- DONE(make sure ignores after comment)
 				// look for <cr>, <lf>, <ff>  
 				
-				t.setValue(t.getValue() + nextChar);
-				nextChar = readChar();
-				t.setValue("//");
+				//t.setValue(t.getValue() + nextChar);
+				//nextChar = readChar();
+				//t.setValue("//");
 				while (nextChar != '\n') {
-					String temp = t.getValue();
-					t.setValue(temp + nextChar);
+					//String temp = t.getValue();
+					//t.setValue(temp + nextChar);
 					nextChar = readChar();
 				}
-				t.setType("Comment");
-				return t;
+				nextChar = readChar();
+				//t.setType("Comment");
+				//return t;
 				
 			} else {
 				// A slash followed by anything else must be an operator.
@@ -91,9 +92,10 @@ public class TokenStream {
 				if (nextChar == '=') {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
+					t.setType("Operator");
 					return t;
 				} else {
-					t.setType("Other");
+					t.setType("Operator");
 				}
 				return t;
 			case '>': 
@@ -102,9 +104,10 @@ public class TokenStream {
 				if (nextChar == '=') {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
+					t.setType("Operator");
 					return t;
 				} else {
-					t.setType("Other");
+					t.setType("Operator");
 				}
 				return t;
 			case '=': 
@@ -113,17 +116,10 @@ public class TokenStream {
 				if (nextChar == '=') {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
-					return t;
-				} if (nextChar == '<') {
-					t.setValue(t.getValue() + nextChar);
-					nextChar = readChar();
-					return t;
-				} if (nextChar == '>') {
-					t.setValue(t.getValue() + nextChar);
-					nextChar = readChar();
+					t.setType("Operator");
 					return t;
 				} else {
-					t.setType("Other");
+					t.setType("Operator");
 				}
 				return t;
 			case '!':
@@ -132,9 +128,10 @@ public class TokenStream {
 				if (nextChar == '=') {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
+					t.setType("Operator");
 					return t;
 				} else {
-					t.setType("Other");
+					t.setType("Operator");
 				}
 				return t;
 			case '|':
@@ -143,6 +140,7 @@ public class TokenStream {
 				if (nextChar == '|') {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
+					t.setType("Operator");
 					return t;
 				} else {
 					t.setType("Other");
@@ -155,11 +153,11 @@ public class TokenStream {
 				if (nextChar == '&') {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
+					t.setType("Operator");
 					return t;
 				} else {
 					t.setType("Other");
 				}
-
 				return t;
 
 			default: // all other operators
