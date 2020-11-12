@@ -197,7 +197,7 @@ public class ConcreteSyntax {
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = relation();
-			// TODO TO BE COMPLETED done? Spencer
+			// TODO TO BE COMPLETED done
 			e = b;
 		}
 		return e;
@@ -208,7 +208,7 @@ public class ConcreteSyntax {
 		Binary b;
 		Expression e;
 		e = addition();
-		while (token.getValue().equals("<") || token.getValue().equals("<=")
+		while (token.getValue().equals("<") || token.getValue().equals(">") || token.getValue().equals("<=")
 				|| token.getValue().equals(">=")
 				|| token.getValue().equals("==")
 				|| token.getValue().equals("<>")) {
@@ -217,7 +217,7 @@ public class ConcreteSyntax {
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = addition();
-			// TODO TO BE COMPLETED done? Spencer
+			// TODO TO BE COMPLETED done
 			e = b;
 		}
 		return e;
@@ -234,7 +234,8 @@ public class ConcreteSyntax {
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = term();
-			// TODO TO BE COMPLETED done? Spencer
+			// TODO TO BE COMPLETED done
+			e = b;
 		}
 		return e;
 	}
@@ -250,7 +251,7 @@ public class ConcreteSyntax {
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = negation();
-			// TODO TO BE COMPLETED done? Spencer
+			// TODO TO BE COMPLETED done
 			e = b;
 		}
 		return e;
@@ -301,24 +302,14 @@ public class ConcreteSyntax {
 	private Conditional ifStatement() {
 		// IfStatement --> if ( Expression ) Statement { else Statement }opt
 		Conditional c = new Conditional();
-		// TODO TO BE COMPLETED needs work... at least it outputs
+		// TODO TO BE COMPLETED done
 		
 		match("if");
-		match("(");
     	c.test = expression();
-    	
-    	//SHOULD HANDLE MULTIPLE EXPRESSIONS IN () ???
-    	token = input.nextToken();
-    	token = input.nextToken();
-    	
-    	match(")");
-    	match("{");
     	c.thenbranch = statement();
     	if (token.getValue().equals("else")) {
-    		match("{");
     		token = input.nextToken();
     		c.elsebranch = statement();
-    		match("}");
     	}
 
 		return c;
@@ -327,20 +318,11 @@ public class ConcreteSyntax {
 	private Loop whileStatement() {
 		// WhileStatement --> while ( Expression ) Statement
 		Loop l = new Loop();
-		// TODO TO BE COMPLETED needs work.. at least it outputs Spencer
+		// TODO TO BE COMPLETED done
 		
 		match("while");
-        match("(");
         l.test = expression();
-        
-        //SHOULD HANDLE MULTIPLE EXPRESSIONS IN () ???
-        token=input.nextToken();
-        token=input.nextToken();
-        
-        match(")");
-        match("{");
         l.body = statements();
-        match("}");
 
 		return l;
 	}
